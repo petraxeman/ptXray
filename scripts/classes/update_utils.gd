@@ -16,10 +16,11 @@ static func init_xray_path(ret: bool = false):
 			else:
 				Globals.xray_path = "user://xray/" + filename
 			break
+	return ""
 
 
 static func is_xray_installed():
-	if DirAccess.get_files_at("user://xray"):
+	if init_xray_path(true):
 		return true
 	return false
 
@@ -101,6 +102,7 @@ static func check_xray_update(progress_bar: ProgressBar = null):
 		ZipUtils.unzip("user://temp/" + git_xray_filename, "user://xray")
 		if OS.get_name().to_lower() == "linux":
 			OS.execute("chmod", ["+x", ProjectSettings.globalize_path("user://xray/xray")])
+		await Globals.downloader.downloads_finished
 
 
 static func delete_xray():

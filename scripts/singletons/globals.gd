@@ -6,12 +6,12 @@ var downloader: FileDownloader
 var xray_path: String
 var is_xray_installed: bool
 
+var xray_pid
 
 
 func _ready() -> void:
 	if UpdateUtils.is_xray_installed():
-		var new_xray_path = UpdateUtils.init_xray_path(true)
-		xray_path = new_xray_path
+		xray_path = UpdateUtils.init_xray_path(true)
 		
 	http = HTTPRequest.new()
 	add_child(http)

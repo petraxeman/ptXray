@@ -39,25 +39,15 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Need a litle more time..."
 horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="progress" type="ProgressBar" parent="vbox"]
 layout_mode = 2
 value = 100.0
+indeterminate = true
+editor_preview_indeterminate = false
 
-[node name="margin2" type="MarginContainer" parent="vbox"]
+[node name="info" type="Label" parent="vbox"]
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 15
-
-[node name="scroll" type="ScrollContainer" parent="vbox/margin2"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="vbox" type="VBoxContainer" parent="vbox/margin2/scroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/separation = 15
+horizontal_alignment = 1
+autowrap_mode = 3

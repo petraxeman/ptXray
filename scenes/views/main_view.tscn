@@ -1,6 +1,75 @@
-[gd_scene load_steps=2 format=3 uid="uid://dcj263q43r0um"]
+[gd_scene load_steps=13 format=3 uid="uid://dcj263q43r0um"]
 
 [ext_resource type="Script" path="res://scenes/views/main_view.gd" id="1_rrglr"]
+[ext_resource type="Script" path="res://scenes/views/main_menu_subviews/routing.gd" id="2_j4wly"]
+[ext_resource type="Texture2D" uid="uid://ptaeg0ku6262" path="res://assets/icons/menu.png" id="2_smyx4"]
+[ext_resource type="Texture2D" uid="uid://dbuo66r104vmc" path="res://assets/icons/cross.png" id="3_b5vi8"]
+
+[sub_resource type="Gradient" id="Gradient_c7jtx"]
+colors = PackedColorArray(0.114897, 0.114897, 0.114897, 1, 0.466829, 0.380539, 0.202499, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7cpgs"]
+gradient = SubResource("Gradient_c7jtx")
+fill_from = Vector2(1, 0)
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_khxct"]
+colors = PackedColorArray(0.113725, 0.113725, 0.113725, 1, 0.466667, 0.380392, 0.203922, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rml7o"]
+gradient = SubResource("Gradient_khxct")
+
+[sub_resource type="Animation" id="Animation_j2fr0"]
+resource_name = "slide_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("slide_menu2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.164938, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-600, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_rw002"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("slide_menu2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_l0dnx"]
+resource_name = "slide_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("slide_menu2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.0627748, 1),
+"update": 0,
+"values": [Vector2(-600, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b3lgi"]
+_data = {
+"RESET": SubResource("Animation_rw002"),
+"slide_in": SubResource("Animation_j2fr0"),
+"slide_out": SubResource("Animation_l0dnx")
+}
 
 [node name="main_view" type="Control"]
 layout_mode = 3
@@ -10,3 +79,301 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_rrglr")
+
+[node name="bg" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_7cpgs")
+
+[node name="active_page" type="Control" parent="."]
+layout_mode = 1
+anchor_top = 0.084
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.200005
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="routing" type="MarginContainer" parent="active_page"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+script = ExtResource("2_j4wly")
+
+[node name="create_new_rule" type="PopupMenu" parent="active_page/routing"]
+initial_position = 1
+size = Vector2i(300, 600)
+hide_on_item_selection = false
+hide_on_checkable_item_selection = false
+allow_search = false
+system_menu_id = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="active_page/routing/create_new_rule"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="active_page/routing/create_new_rule/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="matcher" type="HBoxContainer" parent="active_page/routing/create_new_rule/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="active_page/routing/create_new_rule/MarginContainer/VBoxContainer/matcher"]
+layout_mode = 2
+text = "Matcher: "
+
+[node name="option" type="OptionButton" parent="active_page/routing/create_new_rule/MarginContainer/VBoxContainer/matcher"]
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "hybrid"
+popup/item_1/text = "linear"
+popup/item_1/id = 1
+
+[node name="domain" type="HBoxContainer" parent="active_page/routing/create_new_rule/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="active_page/routing/create_new_rule/MarginContainer/VBoxContainer/domain"]
+layout_mode = 2
+text = "Domain: "
+
+[node name="edit" type="TextEdit" parent="active_page/routing/create_new_rule/MarginContainer/VBoxContainer/domain"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "domain:google.com"
+scroll_fit_content_height = true
+
+[node name="scroll" type="ScrollContainer" parent="active_page/routing"]
+layout_mode = 2
+
+[node name="vbox" type="VBoxContainer" parent="active_page/routing/scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 15
+
+[node name="domain_strategy" type="HBoxContainer" parent="active_page/routing/scroll/vbox"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="active_page/routing/scroll/vbox/domain_strategy"]
+layout_mode = 2
+text = "Strategy: "
+
+[node name="option" type="OptionButton" parent="active_page/routing/scroll/vbox/domain_strategy"]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 3
+popup/item_0/text = "AsIs"
+popup/item_1/text = "IPIfNonMatch"
+popup/item_1/id = 1
+popup/item_2/text = "IPOnDemand"
+popup/item_2/id = 2
+
+[node name="domain_matcher" type="HBoxContainer" parent="active_page/routing/scroll/vbox"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="active_page/routing/scroll/vbox/domain_matcher"]
+layout_mode = 2
+text = "Matcher: "
+
+[node name="option" type="OptionButton" parent="active_page/routing/scroll/vbox/domain_matcher"]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 2
+popup/item_0/text = "hybrid"
+popup/item_1/text = "linear"
+popup/item_1/id = 1
+
+[node name="rules" type="VBoxContainer" parent="active_page/routing/scroll/vbox"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="active_page/routing/scroll/vbox/rules"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Rules"
+horizontal_alignment = 1
+
+[node name="active_page_title" type="Label" parent="."]
+layout_mode = 2
+offset_top = 16.0
+offset_right = 360.0
+offset_bottom = 44.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Settings"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="open_menu" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.022
+anchor_top = 0.011
+anchor_right = 0.142
+anchor_bottom = 0.066
+offset_left = 0.0799994
+offset_top = 0.199999
+offset_right = -0.120003
+offset_bottom = 0.200001
+text = "       "
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="open_menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_smyx4")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="slide_menu2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.6
+anchor_bottom = 1.0
+offset_right = -1.52588e-05
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_rml7o")
+
+[node name="vbox" type="VBoxContainer" parent="slide_menu2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 25
+
+[node name="title" type="MarginContainer" parent="slide_menu2/vbox"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="slide_menu2/vbox/title"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="slide_menu2/vbox/title/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "ptXray v1"
+
+[node name="version" type="Label" parent="slide_menu2/vbox/title/VBoxContainer"]
+layout_mode = 2
+text = "v1"
+
+[node name="actions" type="VBoxContainer" parent="slide_menu2/vbox"]
+layout_mode = 2
+
+[node name="activate" type="Button" parent="slide_menu2/vbox/actions"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Activate"
+alignment = 0
+
+[node name="logs" type="Button" parent="slide_menu2/vbox/actions"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Logs"
+alignment = 0
+
+[node name="routing" type="Button" parent="slide_menu2/vbox/actions"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Routing"
+alignment = 0
+
+[node name="dns" type="Button" parent="slide_menu2/vbox/actions"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "DNS"
+alignment = 0
+
+[node name="inbounds" type="Button" parent="slide_menu2/vbox/actions"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Inbounds"
+alignment = 0
+
+[node name="outbounds" type="Button" parent="slide_menu2/vbox/actions"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Outbounds"
+alignment = 0
+
+[node name="fake_dns" type="Button" parent="slide_menu2/vbox/actions"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "FakeDNS"
+alignment = 0
+
+[node name="settings" type="Button" parent="slide_menu2/vbox/actions"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Settings"
+alignment = 0
+
+[node name="close" type="Button" parent="slide_menu2"]
+layout_mode = 2
+anchor_left = 0.778
+anchor_top = 0.01
+anchor_right = 0.968
+anchor_bottom = 0.061
+offset_left = -0.0480194
+offset_right = -0.0880127
+offset_bottom = 0.199997
+size_flags_horizontal = 8
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="slide_menu2/close"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_b5vi8")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="slide_menu" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_b3lgi")
+}
+autoplay = "slide_in"
+
+[connection signal="item_selected" from="active_page/routing/scroll/vbox/domain_strategy/option" to="active_page/routing" method="_on_domain_strategy_selected"]
+[connection signal="item_selected" from="active_page/routing/scroll/vbox/domain_matcher/option" to="active_page/routing" method="_on_domain_matcher_selected"]
+[connection signal="pressed" from="open_menu" to="." method="_on_open_menu_pressed"]
+[connection signal="pressed" from="slide_menu2/vbox/actions/activate" to="." method="_on_show_activate_view_pressed"]
+[connection signal="pressed" from="slide_menu2/vbox/actions/logs" to="." method="_on_show_logs_view_pressed"]
+[connection signal="pressed" from="slide_menu2/close" to="." method="_on_close_pressed"]

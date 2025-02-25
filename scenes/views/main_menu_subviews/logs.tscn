@@ -1,0 +1,126 @@
+[gd_scene load_steps=2 format=3 uid="uid://d25ovj4pcrp3g"]
+
+[ext_resource type="Script" path="res://scenes/views/main_menu_subviews/logs.gd" id="1_tftnd"]
+
+[node name="logs" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+script = ExtResource("1_tftnd")
+
+[node name="vbox" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="access" type="HBoxContainer" parent="vbox"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="vbox/access"]
+layout_mode = 2
+text = "Access log: "
+
+[node name="access_choice" type="Button" parent="vbox/access"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Choice directory"
+text_overrun_behavior = 3
+clip_text = true
+
+[node name="FileDialog" type="FileDialog" parent="vbox/access"]
+auto_translate_mode = 1
+title = "Open a Directory"
+initial_position = 1
+size = Vector2i(303, 180)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+use_native_dialog = true
+
+[node name="error" type="HBoxContainer" parent="vbox"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="vbox/error"]
+layout_mode = 2
+text = "Error log: "
+
+[node name="error_choice" type="Button" parent="vbox/error"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Choice directory"
+text_overrun_behavior = 3
+clip_text = true
+
+[node name="error_file_selector" type="FileDialog" parent="vbox/error"]
+auto_translate_mode = 1
+title = "Open a Directory"
+initial_position = 1
+size = Vector2i(303, 180)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+use_native_dialog = true
+
+[node name="loglevel" type="HBoxContainer" parent="vbox"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="vbox/loglevel"]
+layout_mode = 2
+text = "Loglevel: "
+
+[node name="options" type="OptionButton" parent="vbox/loglevel"]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 5
+popup/item_0/text = "debug"
+popup/item_1/text = "info"
+popup/item_1/id = 1
+popup/item_2/text = "warning"
+popup/item_2/id = 2
+popup/item_3/text = "error"
+popup/item_3/id = 3
+popup/item_4/text = "none"
+popup/item_4/id = 4
+
+[node name="dnslog" type="HBoxContainer" parent="vbox"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="vbox/dnslog"]
+layout_mode = 2
+text = "Dns log: "
+
+[node name="check" type="CheckButton" parent="vbox/dnslog"]
+layout_mode = 2
+
+[node name="mask_address" type="HBoxContainer" parent="vbox"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="vbox/mask_address"]
+layout_mode = 2
+text = "Mask address: "
+
+[node name="options" type="OptionButton" parent="vbox/mask_address"]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 4
+popup/item_0/text = "quarter"
+popup/item_1/text = "half"
+popup/item_1/id = 1
+popup/item_2/text = "full"
+popup/item_2/id = 2
+popup/item_3/text = "none"
+popup/item_3/id = 3
+
+[connection signal="pressed" from="vbox/access/access_choice" to="." method="_on_access_choice_pressed"]
+[connection signal="file_selected" from="vbox/access/FileDialog" to="." method="_on_file_dialog_file_selected"]
+[connection signal="pressed" from="vbox/error/error_choice" to="." method="_on_error_choice_pressed"]
+[connection signal="file_selected" from="vbox/error/error_file_selector" to="." method="_on_error_file_selector_file_selected"]
+[connection signal="item_selected" from="vbox/loglevel/options" to="." method="_on_loglevel_selected"]
+[connection signal="pressed" from="vbox/dnslog/check" to="." method="_on_dnslog_changed"]
+[connection signal="item_selected" from="vbox/mask_address/options" to="." method="_on_mask_adress_option_selected"]
