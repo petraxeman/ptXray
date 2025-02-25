@@ -16,10 +16,12 @@ func _ready() -> void:
 	set_title("Done!")
 	get_tree().create_timer(1).timeout.connect(redirect_back)
 
+
 func redirect_back():
 	var mw = main_view.instantiate()
 	get_tree().root.add_child(mw)
 	queue_free()
+
 
 func set_title(text: String):
 	$vbox/margin/label.text = text

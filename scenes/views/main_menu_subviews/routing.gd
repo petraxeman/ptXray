@@ -46,6 +46,7 @@ func render():
 			$scroll/vbox/domain_matcher/option.selected = i
 			break
 
+
 func _on_domain_strategy_selected(index: int) -> void:
 	XrayHandler.routing["domainStrategy"] = $scroll/vbox/domain_strategy/option.get_item_text(index)
 	XrayHandler._save_configs()
@@ -59,6 +60,44 @@ func _on_domain_matcher_selected(index: int) -> void:
 
 
 func _open_create_new_rule():
+	$create_new_rule.exclusive = true
 	$create_new_rule.show()
-	$scroll/vbox/domain_strategy/option.disabled = true
-	$scroll/vbox/domain_matcher/option.disabled = true
+
+
+func _on_accept_route_rule_creation():
+	var route_rule = {
+		"type": "field",
+		"enabled": $create_new_rule/scroll/margin/vbox/enable/check.button_pressed,
+		"domainMatcher": _get_current_item($create_new_rule/scroll/margin/vbox/matcher/option),
+		"domain": _split_by($create_new_rule/scroll/margin/vbox/domain/edit),
+		"ip": _split_by($create_new_rule/scroll/margin/vbox/ip/edit),
+		"network": _get_current_item($create_new_rule/scroll/margin/vbox/network/option),
+		"source": _split_by($create_new_rule/scroll/margin/vbox/source/edit),
+		"inboundTag": _get_current_item($create_new_rule/scroll/margin/vbox/inbound_tag/option),
+		"protocol": _get_current_item($create_new_rule/scroll/margin/vbox/protocol/option)
+	}
+	
+	if $create_new_rule/scroll/margin/vbox/port/edit.text:
+		route_rule["port"] = $create_new_rule/scroll/margin/vbox/port/edit.text
+	if $create_new_rule/scroll/margin/vbox/source_port/edit.text:
+		route_rule["sourcePort"] = $create_new_rule/scroll/margin/vbox/source_port/edit.text
+	
+	print(route_rule)
+
+
+func _split_by(edit: TextEdit, delimiter: String = ","):
+	var raw_elements = edit.text.split(delimiter)
+	var prepared_elements = []
+	for re in raw_elements:
+		var el = re.strip_edges().strip_escapes()
+		if el:
+			prepared_elements.append(el)
+	return prepared_elements
+
+
+func _get_current_item(opt: OptionButton):
+	return opt.get_item_text(opt.selected)
+
+
+func _on_cancel_route_rule_creation():
+	$create_new_rule.hide()

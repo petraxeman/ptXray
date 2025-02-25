@@ -9,11 +9,18 @@ static func initialize():
 
 static func init_xray_path(ret: bool = false):
 	var xray_filename: String = ""
+	
+	if not DirAccess.dir_exists_absolute("user://xray"):
+		print("Not found Xray core")
+		return ""
+	
 	for filename in DirAccess.open("user://xray").get_files():
 		if filename in ["xray", "xray.exe"]:
 			if ret:
+				print("Found xray %s" % "user://xray/" + filename)
 				return "user://xray/" + filename
 			else:
+				print("Found xray %s" % "user://xray/" + filename)
 				Globals.xray_path = "user://xray/" + filename
 			break
 	return ""

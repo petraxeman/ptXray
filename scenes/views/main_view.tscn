@@ -19,21 +19,6 @@ colors = PackedColorArray(0.113725, 0.113725, 0.113725, 1, 0.466667, 0.380392, 0
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_rml7o"]
 gradient = SubResource("Gradient_khxct")
 
-[sub_resource type="Animation" id="Animation_j2fr0"]
-resource_name = "slide_in"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("slide_menu2:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.164938, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(-600, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_rw002"]
 length = 0.001
 tracks/0/type = "value"
@@ -47,6 +32,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_j2fr0"]
+resource_name = "slide_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("slide_menu2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.164938, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-600, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_l0dnx"]
@@ -112,60 +112,6 @@ theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 script = ExtResource("2_j4wly")
 
-[node name="create_new_rule" type="PopupMenu" parent="active_page/routing"]
-initial_position = 1
-size = Vector2i(300, 600)
-hide_on_item_selection = false
-hide_on_checkable_item_selection = false
-allow_search = false
-system_menu_id = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="active_page/routing/create_new_rule"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 15
-
-[node name="VBoxContainer" type="VBoxContainer" parent="active_page/routing/create_new_rule/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="matcher" type="HBoxContainer" parent="active_page/routing/create_new_rule/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="title" type="Label" parent="active_page/routing/create_new_rule/MarginContainer/VBoxContainer/matcher"]
-layout_mode = 2
-text = "Matcher: "
-
-[node name="option" type="OptionButton" parent="active_page/routing/create_new_rule/MarginContainer/VBoxContainer/matcher"]
-layout_mode = 2
-selected = 0
-item_count = 2
-popup/item_0/text = "hybrid"
-popup/item_1/text = "linear"
-popup/item_1/id = 1
-
-[node name="domain" type="HBoxContainer" parent="active_page/routing/create_new_rule/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="title" type="Label" parent="active_page/routing/create_new_rule/MarginContainer/VBoxContainer/domain"]
-layout_mode = 2
-text = "Domain: "
-
-[node name="edit" type="TextEdit" parent="active_page/routing/create_new_rule/MarginContainer/VBoxContainer/domain"]
-layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "domain:google.com"
-scroll_fit_content_height = true
-
 [node name="scroll" type="ScrollContainer" parent="active_page/routing"]
 layout_mode = 2
 
@@ -217,6 +163,239 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "Rules"
 horizontal_alignment = 1
+
+[node name="create_new_rule" type="PopupPanel" parent="active_page/routing"]
+initial_position = 1
+size = Vector2i(300, 600)
+visible = true
+
+[node name="scroll" type="ScrollContainer" parent="active_page/routing/create_new_rule"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="margin" type="MarginContainer" parent="active_page/routing/create_new_rule/scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="vbox" type="VBoxContainer" parent="active_page/routing/create_new_rule/scroll/margin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="enable" type="HBoxContainer" parent="active_page/routing/create_new_rule/scroll/margin/vbox"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="active_page/routing/create_new_rule/scroll/margin/vbox/enable"]
+layout_mode = 2
+text = "Enable: "
+
+[node name="check" type="CheckButton" parent="active_page/routing/create_new_rule/scroll/margin/vbox/enable"]
+layout_mode = 2
+size_flags_horizontal = 3
+button_pressed = true
+
+[node name="matcher" type="HBoxContainer" parent="active_page/routing/create_new_rule/scroll/margin/vbox"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="active_page/routing/create_new_rule/scroll/margin/vbox/matcher"]
+layout_mode = 2
+text = "Matcher: "
+
+[node name="option" type="OptionButton" parent="active_page/routing/create_new_rule/scroll/margin/vbox/matcher"]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 2
+popup/item_0/text = "hybrid"
+popup/item_1/text = "linear"
+popup/item_1/id = 1
+
+[node name="domain" type="VBoxContainer" parent="active_page/routing/create_new_rule/scroll/margin/vbox"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="active_page/routing/create_new_rule/scroll/margin/vbox/domain"]
+layout_mode = 2
+text = "Domain: "
+
+[node name="edit" type="TextEdit" parent="active_page/routing/create_new_rule/scroll/margin/vbox/domain"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "domain:google.com, qq.com"
+scroll_fit_content_height = true
+
+[node name="ip" type="VBoxContainer" parent="active_page/routing/create_new_rule/scroll/margin/vbox"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="active_page/routing/create_new_rule/scroll/margin/vbox/ip"]
+layout_mode = 2
+text = "IP: "
+
+[node name="edit" type="TextEdit" parent="active_page/routing/create_new_rule/scroll/margin/vbox/ip"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "0.0.0.0/8, geoip:cn"
+scroll_fit_content_height = true
+
+[node name="port" type="VBoxContainer" parent="active_page/routing/create_new_rule/scroll/margin/vbox"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="active_page/routing/create_new_rule/scroll/margin/vbox/port"]
+layout_mode = 2
+text = "Port: "
+
+[node name="edit" type="TextEdit" parent="active_page/routing/create_new_rule/scroll/margin/vbox/port"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "53, 443, 100-2000"
+scroll_fit_content_height = true
+
+[node name="source_port" type="VBoxContainer" parent="active_page/routing/create_new_rule/scroll/margin/vbox"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="active_page/routing/create_new_rule/scroll/margin/vbox/source_port"]
+layout_mode = 2
+text = "Source port: "
+
+[node name="edit" type="TextEdit" parent="active_page/routing/create_new_rule/scroll/margin/vbox/source_port"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "53, 443, 100-2000"
+scroll_fit_content_height = true
+
+[node name="network" type="HBoxContainer" parent="active_page/routing/create_new_rule/scroll/margin/vbox"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="active_page/routing/create_new_rule/scroll/margin/vbox/network"]
+layout_mode = 2
+text = "Network: "
+
+[node name="option" type="OptionButton" parent="active_page/routing/create_new_rule/scroll/margin/vbox/network"]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 3
+popup/item_0/text = "tcp"
+popup/item_1/text = "udp"
+popup/item_1/id = 1
+popup/item_2/text = "tcp, udp"
+popup/item_2/id = 2
+
+[node name="source" type="VBoxContainer" parent="active_page/routing/create_new_rule/scroll/margin/vbox"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="active_page/routing/create_new_rule/scroll/margin/vbox/source"]
+layout_mode = 2
+text = "Source: "
+
+[node name="edit" type="TextEdit" parent="active_page/routing/create_new_rule/scroll/margin/vbox/source"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "53, 443, 100-2000"
+scroll_fit_content_height = true
+
+[node name="inbound_tag" type="HBoxContainer" parent="active_page/routing/create_new_rule/scroll/margin/vbox"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="active_page/routing/create_new_rule/scroll/margin/vbox/inbound_tag"]
+layout_mode = 2
+text = "Inbound Tag: "
+
+[node name="option" type="OptionButton" parent="active_page/routing/create_new_rule/scroll/margin/vbox/inbound_tag"]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 2
+popup/item_0/text = "hybrid"
+popup/item_1/text = "linear"
+popup/item_1/id = 1
+
+[node name="protocol" type="HBoxContainer" parent="active_page/routing/create_new_rule/scroll/margin/vbox"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="active_page/routing/create_new_rule/scroll/margin/vbox/protocol"]
+layout_mode = 2
+text = "Protocol: "
+
+[node name="option" type="OptionButton" parent="active_page/routing/create_new_rule/scroll/margin/vbox/protocol"]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 3
+popup/item_0/text = "http"
+popup/item_1/text = "tls"
+popup/item_1/id = 1
+popup/item_2/text = "bittorrent"
+popup/item_2/id = 2
+
+[node name="attrs" type="VBoxContainer" parent="active_page/routing/create_new_rule/scroll/margin/vbox"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="active_page/routing/create_new_rule/scroll/margin/vbox/attrs"]
+layout_mode = 2
+text = "Attributes: "
+
+[node name="outbound" type="HBoxContainer" parent="active_page/routing/create_new_rule/scroll/margin/vbox"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="active_page/routing/create_new_rule/scroll/margin/vbox/outbound"]
+layout_mode = 2
+text = "Outbound: "
+
+[node name="option" type="OptionButton" parent="active_page/routing/create_new_rule/scroll/margin/vbox/outbound"]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 3
+popup/item_0/text = "http"
+popup/item_1/text = "tls"
+popup/item_1/id = 1
+popup/item_2/text = "bittorrent"
+popup/item_2/id = 2
+
+[node name="balancer" type="HBoxContainer" parent="active_page/routing/create_new_rule/scroll/margin/vbox"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="active_page/routing/create_new_rule/scroll/margin/vbox/balancer"]
+layout_mode = 2
+text = "Balancer: "
+
+[node name="option" type="OptionButton" parent="active_page/routing/create_new_rule/scroll/margin/vbox/balancer"]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 3
+popup/item_0/text = "http"
+popup/item_1/text = "tls"
+popup/item_1/id = 1
+popup/item_2/text = "bittorrent"
+popup/item_2/id = 2
+
+[node name="actions" type="HBoxContainer" parent="active_page/routing/create_new_rule/scroll/margin/vbox"]
+layout_mode = 2
+
+[node name="cancel" type="Button" parent="active_page/routing/create_new_rule/scroll/margin/vbox/actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel"
+
+[node name="accept" type="Button" parent="active_page/routing/create_new_rule/scroll/margin/vbox/actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Accept"
 
 [node name="active_page_title" type="Label" parent="."]
 layout_mode = 2
@@ -373,6 +552,8 @@ autoplay = "slide_in"
 
 [connection signal="item_selected" from="active_page/routing/scroll/vbox/domain_strategy/option" to="active_page/routing" method="_on_domain_strategy_selected"]
 [connection signal="item_selected" from="active_page/routing/scroll/vbox/domain_matcher/option" to="active_page/routing" method="_on_domain_matcher_selected"]
+[connection signal="pressed" from="active_page/routing/create_new_rule/scroll/margin/vbox/actions/cancel" to="active_page/routing" method="_on_cancel_route_rule_creation"]
+[connection signal="pressed" from="active_page/routing/create_new_rule/scroll/margin/vbox/actions/accept" to="active_page/routing" method="_on_accept_route_rule_creation"]
 [connection signal="pressed" from="open_menu" to="." method="_on_open_menu_pressed"]
 [connection signal="pressed" from="slide_menu2/vbox/actions/activate" to="." method="_on_show_activate_view_pressed"]
 [connection signal="pressed" from="slide_menu2/vbox/actions/logs" to="." method="_on_show_logs_view_pressed"]

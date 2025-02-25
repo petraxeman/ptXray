@@ -39,7 +39,7 @@ func _on_access_choice_pressed() -> void:
 	$vbox/access/FileDialog.show()
 
 
-func _on_file_dialog_file_selected(path: String) -> void:
+func _on_access_dir_selected(path: String):
 	XrayHandler.logs["access"] = ProjectSettings.globalize_path(path)
 	XrayHandler._save_configs()
 	render()
@@ -49,7 +49,8 @@ func _on_error_choice_pressed() -> void:
 	$vbox/error/error_file_selector.show()
 
 
-func _on_error_file_selector_file_selected(path: String) -> void:
+
+func _on_error_dir_selected(path: String):
 	XrayHandler.logs["error"] = ProjectSettings.globalize_path(path)
 	XrayHandler._save_configs()
 	render()
@@ -71,6 +72,6 @@ func _on_mask_adress_option_selected(index: int) -> void:
 	if index == 4:
 		XrayHandler.logs.erase("maskAddress")
 	else:
-		XrayHandler.logs["maskAddress"] = $vbox/mask_address/options.get_item_text()
+		XrayHandler.logs["maskAddress"] = $vbox/mask_address/options.get_item_text(index)
 	XrayHandler._save_configs()
 	render()

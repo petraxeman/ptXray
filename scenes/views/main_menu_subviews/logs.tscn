@@ -40,6 +40,7 @@ initial_position = 1
 size = Vector2i(303, 180)
 ok_button_text = "Select Current Folder"
 file_mode = 2
+access = 2
 use_native_dialog = true
 
 [node name="error" type="HBoxContainer" parent="vbox"]
@@ -63,6 +64,7 @@ initial_position = 1
 size = Vector2i(303, 180)
 ok_button_text = "Select Current Folder"
 file_mode = 2
+access = 2
 use_native_dialog = true
 
 [node name="loglevel" type="HBoxContainer" parent="vbox"]
@@ -118,9 +120,9 @@ popup/item_3/text = "none"
 popup/item_3/id = 3
 
 [connection signal="pressed" from="vbox/access/access_choice" to="." method="_on_access_choice_pressed"]
-[connection signal="file_selected" from="vbox/access/FileDialog" to="." method="_on_file_dialog_file_selected"]
+[connection signal="dir_selected" from="vbox/access/FileDialog" to="." method="_on_access_dir_selected"]
 [connection signal="pressed" from="vbox/error/error_choice" to="." method="_on_error_choice_pressed"]
-[connection signal="file_selected" from="vbox/error/error_file_selector" to="." method="_on_error_file_selector_file_selected"]
+[connection signal="dir_selected" from="vbox/error/error_file_selector" to="." method="_on_error_dir_selected"]
 [connection signal="item_selected" from="vbox/loglevel/options" to="." method="_on_loglevel_selected"]
 [connection signal="pressed" from="vbox/dnslog/check" to="." method="_on_dnslog_changed"]
 [connection signal="item_selected" from="vbox/mask_address/options" to="." method="_on_mask_adress_option_selected"]
